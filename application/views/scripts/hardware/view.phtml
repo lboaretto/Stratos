@@ -116,7 +116,7 @@
                         <td><?=$this->hardware->publicNetworkComponent->macAddress?></td>
                     </tr>
 
-                    <?php if($this->hardware->publicNetworkComponent->primaryIpAddress):?>
+                    <?php if ($this->hardware->publicNetworkComponent->primaryIpAddress):?>
                         <tr>
                             <td class="dark"><?=$this->translate->_('primary IP')?>:</td>
                             <td><?=$this->hardware->publicNetworkComponent->primaryIpAddress?></td>
@@ -133,7 +133,7 @@
                         </tr>
                     <?php endif;?>
 
-                    <?php if(count($this->hardware->publicNetworkComponent->subnets) > 0):?>
+                    <?php if (count($this->hardware->publicNetworkComponent->subnets) > 0):?>
                         <tr>
                             <td class="dark"><?=$this->translate->_('secondary addresses')?>:</td>
                             <td>
@@ -144,14 +144,14 @@
                         </tr>
                     <?php endif;?>
 
-                    <?php if($this->hardware->publicNetworkComponent->primarySubnet->networkVlanId):?>
+                    <?php if ($this->hardware->publicNetworkComponent->primarySubnet->networkVlanId):?>
                         <tr>
                             <td class="dark"><?=$this->translate->_('VLAN')?>:</td>
                             <td><?=$this->hardware->publicNetworkComponent->primarySubnet->networkVlan->vlanNumber?></td>
                         </tr>
                     <?php endif;?>
 
-                    <?php if($this->hardware->bandwidthAllocation || $this->hardware->virtualRackName):?>
+                    <?php if ($this->hardware->bandwidthAllocation || $this->hardware->virtualRackName):?>
                         <tr>
                             <td class="dark"><?=$this->translate->_('bandwidth allotment')?>:</td>
                             <td><?=($this->hardware->bandwidthAllocation > 999999) ? 'Unmetered' : $this->hardware->bandwidthAllocation?> GB<br />
@@ -160,7 +160,7 @@
                         </tr>
                     <?php endif;?>
 
-                    <?php if($this->hardware->nextBillingCycleBandwidthAllocation
+                    <?php if ($this->hardware->nextBillingCycleBandwidthAllocation
                         && $this->hardware->nextBillingCycleBandwidthAllocation != $this->hardware->bandwidthAllocation):?>
 
                         <tr>
@@ -199,7 +199,7 @@
                         <td><?=$this->hardware->privateNetworkComponent->macAddress?></td>
                     </tr>
 
-                    <?php if($this->hardware->privateNetworkComponent->primaryIpAddress):?>
+                    <?php if ($this->hardware->privateNetworkComponent->primaryIpAddress):?>
                         <tr>
                             <td class="dark"><?=$this->translate->_('primary IP')?>:</td>
                             <td><?=$this->hardware->privateNetworkComponent->primaryIpAddress?></td>
@@ -216,7 +216,7 @@
                         </tr>
                     <?php endif;?>
 
-                    <?php if(count($this->hardware->privateNetworkComponent->subnets) > 0):?>
+                    <?php if (count($this->hardware->privateNetworkComponent->subnets) > 0):?>
                         <tr>
                             <td class="dark"><?=$this->translate->_('secondary addresses')?>:</td>
                             <td>
@@ -227,16 +227,23 @@
                         </tr>
                     <?php endif;?>
 
-                    <?php if($this->hardware->privateNetworkComponent->ipmiIpAddress
+                    <?php if ($this->hardware->privateNetworkComponent->ipmiIpAddress
                         && !$this->hardware->activeTransaction):?>
 
                         <tr>
                             <td class="dark"><?=$this->translate->_('IPMI address')?>:</td>
                             <td><?=$this->hardware->privateNetworkComponent->ipmiIpAddress?></td>
                         </tr>
+
+                        <?php if (isset($this->hardware->remoteManagementUsers[0]->username)): ?>
+                            <tr>
+                                <td class="dark"><?=$this->translate->_('IPMI login')?>:</td>
+                                <td><i><?=$this->hardware->remoteManagementUsers[0]->username?> / <?=$this->hardware->remoteManagementUsers[0]->password?></i></td>
+                            </tr>
+                        <?php endif; ?>
                     <?php endif;?>
 
-                    <?php if($this->hardware->privateNetworkComponent->primarySubnet->networkVlanId):?>
+                    <?php if ($this->hardware->privateNetworkComponent->primarySubnet->networkVlanId):?>
                         <tr>
                             <td class="dark"><?=$this->translate->_('VLAN')?>:</td>
                             <td><?=$this->hardware->privateNetworkComponent->primarySubnet->networkVlan->vlanNumber?></td>
@@ -272,7 +279,7 @@
                         <td><?=$this->hardware->managementNetworkComponent->macAddress?></td>
                     </tr>
 
-                    <?php if($this->hardware->managementNetworkComponent->primaryIpAddress):?>
+                    <?php if ($this->hardware->managementNetworkComponent->primaryIpAddress):?>
                         <tr>
                             <td class="dark"><?=$this->translate->_('primary IP')?>:</td>
                             <td><?=$this->hardware->managementNetworkComponent->primaryIpAddress?></td>
@@ -289,7 +296,7 @@
                         </tr>
                     <?php endif;?>
 
-                    <?php if(count($this->hardware->managementNetworkComponent->subnets) > 0):?>
+                    <?php if (count($this->hardware->managementNetworkComponent->subnets) > 0):?>
                         <tr>
                             <td class="dark"><?=$this->translate->_('secondary addresses')?>:</td>
                             <td>
@@ -300,16 +307,23 @@
                         </tr>
                     <?php endif;?>
 
-                    <?php if($this->hardware->managementNetworkComponent->ipmiIpAddress
+                    <?php if ($this->hardware->managementNetworkComponent->ipmiIpAddress
                         && !$this->hardware->activeTransaction):?>
 
                         <tr>
                             <td class="dark"><?=$this->translate->_('IPMI address')?>:</td>
                             <td><?=$this->hardware->managementNetworkComponent->ipmiIpAddress?></td>
                         </tr>
+
+                        <?php if (isset($this->hardware->remoteManagementUsers[0]->username)): ?>
+                            <tr>
+                                <td class="dark"><?=$this->translate->_('IPMI login')?>:</td>
+                                <td><i><?=$this->hardware->remoteManagementUsers[0]->username?> / <?=$this->hardware->remoteManagementUsers[0]->password?></i></td>
+                            </tr>
+                        <?php endif; ?>
                     <?php endif;?>
 
-                    <?php if($this->hardware->managementNetworkComponent->primarySubnet->networkVlanId):?>
+                    <?php if ($this->hardware->managementNetworkComponent->primarySubnet->networkVlanId):?>
                         <tr>
                             <td class="dark"><?=$this->translate->_('VLAN')?>:</td>
                             <td><?=$this->hardware->managementNetworkComponent->primarySubnet->networkVlan->vlanNumber?></td>
@@ -329,7 +343,7 @@
 
             <div class="windowBody">
             <table class="centered">
-                <?php if($this->hardware->businessContinuanceInsuranceFlag):?>
+                <?php if ($this->hardware->businessContinuanceInsuranceFlag):?>
                     <tr>
                         <td class="dark"><?=$this->translate->_('business continuance insurance')?>:</td>
                         <td><?=ucfirst($this->translate->_('active'))?></td>
@@ -338,7 +352,7 @@
 
                 <tr>
                     <td class="dark"><?=$this->translate->_('hardware firewall')?>:</td>
-                    <td><?php if(isset($this->hardware->firewallServiceComponent->status)): ?>
+                    <td><?php if (isset($this->hardware->firewallServiceComponent->status)): ?>
                         <?=ucfirst($this->translate->_('installed'))?>, <?=($this->hardware->firewallServiceComponent->status == 'bypass') ? $this->translate->_('bypass mode') : $this->translate->_('running rules')?>
                     <?php else: ?>
                         <?=ucfirst($this->translate->_('not installed'))?>
@@ -351,7 +365,7 @@
                     <td><?=ucfirst($this->translate->_('capacity'))?>: 1GB</td>
                 </tr>
 
-                <?php if(count($this->hardware->account->nasNetworkStorage) > 0):?>
+                <?php if (count($this->hardware->account->nasNetworkStorage) > 0):?>
                     <tr>
                         <td class="dark"><?=$this->translate->_('NAS storage')?>:</td>
                         <td>
@@ -362,7 +376,7 @@
                     </tr>
                 <?php endif; ?>
 
-                <?php if(count($this->hardware->account->iscsiNetworkStorage) > 0):?>
+                <?php if (count($this->hardware->account->iscsiNetworkStorage) > 0):?>
                     <tr>
                         <td class="dark"><?=$this->translate->_('iSCSI storage')?>:</td>
                         <td>
@@ -373,7 +387,7 @@
                     </tr>
                 <?php endif; ?>
 
-                <?php if(count($this->hardware->account->evaultNetworkStorage) > 0):?>
+                <?php if (count($this->hardware->account->evaultNetworkStorage) > 0):?>
                     <tr>
                         <td class="dark"><?=$this->translate->_('backup storage')?>:</td>
                         <td>
@@ -384,7 +398,7 @@
                     </tr>
                 <?php endif; ?>
 
-                <?php if(count($this->hardware->monitoringServiceComponent) > 0):?>
+                <?php if (count($this->hardware->monitoringServiceComponent) > 0):?>
                     <tr>
                         <td class="dark"><?=$this->translate->_('network monitoring')?>:</td>
                         <td><?php switch($this->hardware->monitoringServiceComponent->monitorLevel):

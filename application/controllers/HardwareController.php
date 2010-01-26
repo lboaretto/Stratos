@@ -174,6 +174,7 @@ class HardwareController extends Zend_Controller_Action
              */
             $objectMask->backendNetworkComponents->primarySubnet;
             $objectMask->backendNetworkComponents->subnets;
+            $objectMask->remoteManagementUsers;
 
             /*
              * Service info
@@ -220,7 +221,7 @@ class HardwareController extends Zend_Controller_Action
                         foreach ($hardware->components as $component) {
                             $description = null;
 
-                            if($component->hardwareComponentModel->hardwareGenericComponentModel->hardwareComponentTypeId == $componentTypeId) {
+                            if ($component->hardwareComponentModel->hardwareGenericComponentModel->hardwareComponentTypeId == $componentTypeId) {
                                 /*
                                  * Build a component description
                                  */
@@ -232,12 +233,12 @@ class HardwareController extends Zend_Controller_Action
                                         $component->hardwareComponentModel->version = preg_replace('/RAID-\d+|JBOD/i', 'RAID', $component->hardwareComponentModel->version);
                                         $description = $component->hardwareComponentModel->manufacturer . ' ' . $component->hardwareComponentModel->name . ' ' . $component->hardwareComponentModel->version;
 
-                                        if(preg_match('/RAID/i', $component->hardwareComponentModel->description)) {
+                                        if (preg_match('/RAID/i', $component->hardwareComponentModel->description)) {
                                             $raidAttribute = null;
 
                                             if ($component->attributes) {
                                                 foreach ($component->attributes as $attribute) {
-                                                    if($attribute->hardwareComponentAttributeType->keyName == 'RAID') {
+                                                    if ($attribute->hardwareComponentAttributeType->keyName == 'RAID') {
                                                         $raidAttribute = $attribute;
                                                         break;
                                                     }
