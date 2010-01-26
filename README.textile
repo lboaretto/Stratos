@@ -2,7 +2,7 @@ h1. Stratos: a white-label SoftLayer portal.
 
 h2. Overview
 
-Stratos is a locally-installed, functional, and brandable inplementation of the "SoftLayer customer portal":https://manage.softlayer.com/. Install it on a PHP-enabled web server and configure per-user skinning, language, and access levels. Stratos currently sports the following features:
+Stratos is a locally-installed, functional, and brandable implementation of the "SoftLayer customer portal":https://manage.softlayer.com/. Install it on a PHP-enabled web server and configure per-user skinning, language, and access levels. Stratos currently sports the following features:
 
 * Configure users locally with a username and SoftLayer API key, however users log into Stratos with their SoftLayer portal username and password.
 * Create skins and configure system default or per-user skins.
@@ -60,7 +60,7 @@ Skins consist of a logo image and an editable CSS file that can change Stratos' 
 
 h3. Languages
 
-Languages are semicolon-deliniated "CSV":http://en.wikipedia.org/wiki/Comma-separated_values files that define a word or phrase used in Stratos and a translated equivalent of that word or phrase. Like skins, languages can be configured by either editing files directly or by filling out a configuration form, and you can configure system default or per-user languages.
+Languages are semicolon delineated "CSV":http://en.wikipedia.org/wiki/Comma-separated_values files that define a word or phrase used in Stratos and a translated equivalent of that word or phrase. Like skins, languages can be configured by either editing files directly or by filling out a configuration form, and you can configure system default or per-user languages.
 
 Stratos determines what languages are installed by looking for .csv files in the @data/languages@ directory.
 
