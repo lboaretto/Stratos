@@ -1,0 +1,73 @@
+<div class="twoColumnLeft" style="width: 200px">
+    <div class="window" style="margin-bottom: 12px;">
+        <h1><?=ucfirst($this->translate->_('actions'))?></h1>
+
+        <div class="windowBody">
+        <?php include 'actions.phtml'?>
+        </div>
+    </div>
+</div>
+
+<div class="twoColumnRight" style="width: 605px;">
+    <div class="window" style="margin-bottom: 12px;">
+        <h1><?=$this->translate->_('Add User')?></h1>
+
+        <div class="windowBody">
+            <?=$this->form?>
+            <br />
+            <br />
+            <table>
+                <tr>
+                    <td class="dark"><?=ucfirst($this->translate->_('username'))?>:</td>
+                    <td><?=$this->translate->_('The username used to log into the SoftLayer customer portal.')?></td>
+                </tr>
+
+                <tr>
+                    <td class="dark"><?=$this->translate->_('API key')?>:</td>
+                    <td><?=$this->translate->_('The user\'s SoftLayer API key. Log into <a href="https://manage.softlayer.com/Administrative/apiKeychain">The SoftLayer customer portal</a> to generate an API key.')?></td>
+                </tr>
+
+                <tr>
+                    <td class="dark"><?=ucfirst($this->translate->_('skin'))?>:</td>
+                    <td><?=$this->translate->_("The skin the user will see when they're logged in.")?></td>
+                </tr>
+
+                <tr>
+                    <td class="dark"><?=ucfirst($this->translate->_('language'))?>:</td>
+                    <td><?=$this->translate->_("The user's chosen language. Some information retrieved from SoftLayer may be presented in US English.")?></td>
+                </tr>
+
+                <tr>
+                    <td class="dark"><?=ucfirst($this->translate->_('administrator'))?>:</td>
+                    <td><?=$this->translate->_('Whether or not this user is a local administrator. Administrators have access to change general settings, skins, languages, and other users.')?></td>
+                </tr>
+            </table>
+        </div>
+    </div>
+
+    <div class="window">
+        <h1><?=$this->translate->_('Users')?></h1>
+
+        <div class="windowBody">
+            <table class="listTable" width="100%">
+                <tr>
+                    <th><?=$this->translate->_('username')?></th>
+                    <th><?=$this->translate->_('skin')?></th>
+                    <th><?=$this->translate->_('language')?></th>
+                    <th><?=$this->translate->_('administrator')?></th>
+                </tr>
+
+                <?php foreach ($this->users as $i => $user): ?>
+                    <tr<?=($i % 2) ? '' : ' class="alternate"'?>>
+                        <td><a href="<?=$this->url(array('action' => 'editUser', 'id' => $user->id))?>"><?=$user->username?></a></td>
+                        <td align="center"><?=($user->skin == null) ?'<i>' . $this->translate->_('system default') . '</i>' : $user->skin ?></td>
+                        <td align="center"><?=($user->language == null) ?'<i>' . $this->translate->_('system default') . '</i>' : $user->language?></td>
+                        <td align="center"><?=($user->isAdmin) ? '<b>' . $this->translate->_('yes') . '</b>' : $this->translate->_('no')?></td>
+                    </tr>
+                <?php endforeach; ?>
+            </table>
+        </div>
+    </div>
+</div>
+
+<div class="clearAll">&nbsp;</div>

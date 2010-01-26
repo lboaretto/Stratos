@@ -1,0 +1,38 @@
+<div class="twoColumnLeft" style="width: 200px">
+    <div class="window" style="margin-bottom: 12px;">
+        <h1><?=ucfirst($this->translate->_('actions'))?></h1>
+
+        <div class="windowBody">
+        <?php include 'actions.phtml'?>
+        </div>
+    </div>
+</div>
+
+<div class="twoColumnRight" style="width: 605px;">
+    <div class="window">
+        <h1><?=$this->translate->_('Configuration')?></h1>
+
+        <div class="windowBody">
+            <?=$this->form?>
+            <br />
+            <table>
+                <tr>
+                    <td class="dark"><?=ucfirst($this->translate->_('default title'))?>:</td>
+                    <td><?=$this->translate->_('The name that appears before the title in every page.')?></td>
+                </tr>
+
+                <tr>
+                    <td class="dark"><?=ucfirst($this->translate->_('default skin'))?>:</td>
+                    <td><?=$this->translate->_('The skin that users will see on the login page or if their skin is unset.')?></td>
+                </tr>
+
+                <tr>
+                    <td class="dark"><?=ucfirst($this->translate->_('default language'))?>:</td>
+                    <td><?=$this->translate->_('The language that users will see on the login page or if their language is unset.')?></td>
+                </tr>
+            </table>
+        </div>
+    </div>
+</div>
+
+<div class="clearAll">&nbsp;</div>

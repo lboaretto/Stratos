@@ -1,0 +1,54 @@
+<?php if ($this->hardware->hostname != null): ?>
+    <div class="twoColumnLeft" style="width: 200px">
+        <div class="window" style="margin-bottom: 12px;">
+            <h1><?=ucfirst($this->translate->_('actions'))?></h1>
+
+            <div class="windowBody">
+            <?php include 'actions.phtml'?>
+            </div>
+        </div>
+    </div>
+
+    <div class="twoColumnRight" style="width: 605px;">
+        <div class="window" style="margin-bottom: 12px;">
+            <h1><?=ucfirst($this->translate->_('reboot'))?></h1>
+
+            <div class="windowBody">
+                <?php if ($this->rebootSuccessful): ?>
+                    <p><?=$this->translate->_('Your server is rebooting and will be online in a few minutes.')?></p>
+                <?php else: ?>
+                    <p><?=sprintf($this->translate->_("Click the reboot button below to issue a reboot command across %s's management card or power cycle via it's intelligent power strip. This server will reboot immediately and will be down while it reboots."), $this->hardware->hostname . $this->hardware->domain)?></p>
+                    <br />
+
+                    <?=$this->form?>
+                <?php endif; ?>
+            </div>
+        </div>
+
+        <?php if (count($this->hardware->recentRemoteManagementCommands) > 0):?>
+            <div class="window" style="margin-bottom: 12px">
+                <h1><?=ucfirst($this->translate->_('recent remote command history'))?></h1>
+
+                <div class="windowBody">
+                    <table class="listTable" width="100%">
+                        <tr>
+                            <th><?=$this->translate->_('request date')?></th>
+                            <th><?=$this->translate->_('command')?></th>
+                            <th><?=$this->translate->_('status')?></th>
+                        <tr>
+
+                        <?php foreach ($this->hardware->recentRemoteManagementCommands as $i => $command):?>
+                            <tr<?=($i % 2) ? '' : ' class="alternate"'?>>
+                                <td><?=date('F j, Y g:ia (\G\M\T O)', strtotime($command->createDate))?></td>
+                                <td><?= ucfirst(strtolower(str_replace('_', ' ', $command->remoteManagementCommand->keyName)))?></td>
+                                <td><?=($command->processed) ? $this->translate->_('successful') : $this->translate->_('failed') ?></td>
+                            </tr>
+                        <?php endforeach; ?>
+                    </table>
+                </div>
+            </div>
+        <?php endif; ?>
+    </div>
+
+    <div class="clearAll">&nbsp;</div>
+<?php endif; ?>

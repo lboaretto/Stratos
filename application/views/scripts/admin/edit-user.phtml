@@ -1,0 +1,65 @@
+<div class="twoColumnLeft" style="width: 200px">
+    <div class="window" style="margin-bottom: 12px;">
+        <h1><?=ucfirst($this->translate->_('actions'))?></h1>
+
+        <div class="windowBody">
+        <?php include 'actions.phtml'?>
+        </div>
+    </div>
+</div>
+
+<div class="twoColumnRight" style="width: 605px;">
+    <?php print_r($currentUser) ?>
+    <div class="window" style="margin-bottom: 12px;">
+        <h1><?=$this->translate->_('Edit')?></h1>
+
+        <div class="windowBody">
+            <?=$this->form?>
+            <br />
+            <br />
+            <table>
+                <tr>
+                    <td class="dark"><?=ucfirst($this->translate->_('username'))?>:</td>
+                    <td><?=$this->translate->_('The username used to log into the SoftLayer customer portal.')?></td>
+                </tr>
+
+                <tr>
+                    <td class="dark"><?=$this->translate->_('API key')?>:</td>
+                    <td><?=$this->translate->_('The user\'s SoftLayer API key. Log into <a href="https://manage.softlayer.com/Administrative/apiKeychain">The SoftLayer customer portal</a> to generate an API key.')?></td>
+                </tr>
+
+                <tr>
+                    <td class="dark"><?=ucfirst($this->translate->_('skin'))?>:</td>
+                    <td><?=$this->translate->_("The skin the user will see when they're logged in.")?></td>
+                </tr>
+
+                <tr>
+                    <td class="dark"><?=ucfirst($this->translate->_('language'))?>:</td>
+                    <td><?=$this->translate->_("The user's chosen language. Some information retrieved from SoftLayer may be presented in US English.")?></td>
+                </tr>
+
+                <tr>
+                    <td class="dark"><?=ucfirst($this->translate->_('administrator'))?>:</td>
+                    <td><?=$this->translate->_('Whether or not this user is a local administrator. Administrators have access to change general settings, skins, languages, and other users.')?></td>
+                </tr>
+            </table>
+        </div>
+    </div>
+
+    <?php if ($this->deleteForm != null): ?>
+        <div class="window">
+            <h1><?=$this->translate->_('Delete')?></h1>
+
+            <div class="windowBody">
+            <p><b><?=ucfirst($this->translate->_('warning!'))?></b></p>
+            <br />
+            <p><?=sprintf($this->translate->_('This form will locally delete the user %s, but will not remove it\'s SoftLayer user record. Click the "Submit" button below to delete this user.'), $this->user->username)?></p>
+            <br />
+
+            <?=$this->deleteForm?>
+            </div>
+        </div>
+    <?php endif; ?>
+</div>
+
+<div class="clearAll">&nbsp;</div>

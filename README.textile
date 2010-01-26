@@ -1,0 +1,73 @@
+h1. Stratos: a white-label SoftLayer portal.
+
+h2. Overview
+
+Stratos is a locally-installed, functional, and brandable inplementation of the "SoftLayer customer portal":https://manage.softlayer.com/. Install it on a PHP-enabled web server and configure per-user skinning, language, and access levels. Stratos currently sports the following features:
+
+* Configure users locally with a username and SoftLayer API key, however users log into Stratos with their SoftLayer portal username and password.
+* Create skins and configure system default or per-user skins.
+* Create and configure language packs. Languages can be applied system wide or per-user.
+* Once logged in, users see a brief summary of their hardware state, showing what's up, down, or recovering according to SoftLayer's monitoring systems as well as which servers are approaching their bandwidth allocations.
+* Users can retrieve lists of their hardware. From that list they can:
+** View a single server's details including hardware, software, public network, private network, maintenance network, and service details.
+** View hardware temperature and fan sensor graphs.
+** Reboot servers via their IPMI card, powerstrip, or by IPMI with powerstrip failover.
+
+Stratos retrieves it's information from the SoftLayer API. The only locally stored settings are simple portal options kept in a configuration file and local users stored in a SQLite database. Administrative web forms can set these configuration options and manage users.
+
+h2. System Requirements
+
+Stratos is a "PHP":http://www.php.net/ based project, requiring a web server with at least PHP 5.2.3, and is built in the "Zend Framework":http://framework.zend.com/. Zend Framework 1.9.7 is bundled with the project, but has been tested to work with Zend Framework 1.9.4 - 1.9.7 if you wish to use your own copy of the Zend Framework. Stratos requires the following PHP modules loaded:
+
+* "SOAP":http://www.php.net/soap
+* "PCRE":http://www.php.net/PCRE
+* "PDO":http://www.php.net/PDO
+* "PDO_SQLITE":http://www.php.net/PDO_SQLITE
+* "SPL":http://www.php.net/SPL
+* "Session":http://www.php.net/manual/en/book.session.php
+* "Ctype":http://www.php.net/Ctype
+
+In order to save configuration settings, skins, and languages, Stratos requires web server write access to the configuration file @application/configs/settings.ini@, skins directory @public/skins@, languages directory @data/languages@, and the database path @data/db@.
+
+h2. Installation
+
+# Verify your web server meets system requirements.
+# Download and extract the Stratos package to your web server.
+# Create or modify a virtual host in your HTTP server configuration with a document root pointing to the extracted Stratos package's @public@ directory.
+# Visit the virtual host in your web browser. A small installation script will verify your server meets requirements and create your first system user. Remember, your user requires a valid SoftLayer API username and key.
+
+Your first user is an administrative user and will have access to create other users, edit Stratos' settings, and modify skins and languages.
+
+h2. Usage
+
+h3. Logging In and Logging Out
+
+You will be presented with a login form when you visit Stratos in your web browser. Log in with your SoftLayer customer portal username and password to access Stratos. Once logged in you can manage your hardware and will be presented a logout link on the right-hand side of the page. You will be logged out automatically if you close your browser window.
+
+If the user logging in is an administrative user then they will see an Administrative link in the main menu. From the Administrative menu they can edit Stratos' settings and modify skins and languages.
+
+h3. General Configuration
+
+The general configuration page sets the default skin, default language, and a custom page title.
+
+h3. Skins
+
+Skins are a simple way you can customize Stratos' look and feel.
+
+Stratos is configured with a default skin and supports the ability to assign skins to individual users. Users with custom skins will see the default skin on the Stratos login page.
+
+Skins consist of a logo image and an editable CSS file that can change Stratos' colors, placement, and the like. Stratos determines what skins are installed by looking at the contents of the @public/skins@ directory. Each directory in this path corresponds to a single skin. You can manually edit the contents of these directories or use the configuration forms in the Edit Skins administrative menu to change logo and CSS content.
+
+h3. Languages
+
+Languages are semicolon-deliniated "CSV":http://en.wikipedia.org/wiki/Comma-separated_values files that define a word or phrase used in Stratos and a translated equivalent of that word or phrase. Like skins, languages can be configured by either editing files directly or by filling out a configuration form, and you can configure system default or per-user languages.
+
+Stratos determines what languages are installed by looking for .csv files in the @data/languages@ directory.
+
+h2. Author
+
+Stratos is writen by the SoftLayer Development Team <"sldn@softlayer.com":mailto:sldn@softlayer.com>.
+
+h2. Copyright
+
+Stratos is Copyright (c) 2010 "SoftLayer Technologies, Inc":http://www.softlayer.com/. See the bundled LICENSE.textile file for more information.

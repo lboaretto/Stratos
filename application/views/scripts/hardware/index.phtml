@@ -1,0 +1,40 @@
+<div class="window" style="margin-left: auto; margin-right: auto; width: 700px">
+    <h1>&nbsp;</h1>
+
+    <div class="windowBody">
+        <table class="listTable" width="100%">
+            <thead>
+                <tr>
+                    <th><?=ucfirst($this->translate->_('server'))?></th>
+                    <th><?=$this->translate->_('Public IP')?></th>
+                    <th><?=$this->translate->_('Private IP')?></th>
+                    <th><?=$this->translate->_('Location')?></th>
+                    <th><?=$this->translate->_('Status')?></th>
+                </tr>
+            </thead>
+
+            <tbody>
+                <?php if (count($this->hardware) > 0): ?>
+                    <?php foreach ($this->hardware as $i => $server):?>
+                        <tr<?=($i % 2) ? '' : ' class="alternate"'?>>
+                            <td nowrap="nowrap"><a href="<?=$this->url(array('controller' => 'hardware', 'action' => 'view', 'id' => $server->id))?>"><?=$server->hostname?>.<?=$server->domain?></a></td>
+                            <td><?=(isset($server->primaryIpAddress) && $server->primaryIpAddress != null) ? $server->primaryIpAddress : '<i>' . $this->translate->_('none') . '</i>'?></td>
+                            <td><?=$server->primaryBackendIpAddress?></td>
+                            <td><?=$server->datacenter->longName?></td>
+                            <td><?=$this->translate->_($server->statusMessage)?></td>
+                        </tr>
+                    <?php endforeach;?>
+                <?php else: ?>
+                    <tr>
+                        <td colspan="5" align="center">
+                            <br />
+                            <p><b><?=$this->translate->_('No hardware found.')?></b></p>
+                            <br />
+                        </td>
+                    <tr>
+                <?php endif; ?>
+            </tbody>
+        </table>
+    </div>
+</div>
+

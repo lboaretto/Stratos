@@ -1,0 +1,291 @@
+@CHARSET "UTF-8";
+
+/*
+ * General styles
+ */
+* {
+    margin: 0px;
+    padding: 0px;
+    font-family: Helvetica, Arial;
+    font-size: 12px;
+}
+
+a:link, a:active, a:visited, a:hover {
+    color: blue;
+}
+
+body {
+    background-color: #333;
+    color: #333333;
+}
+
+.centered {
+    margin-left: auto;
+    margin-right: auto;
+}
+
+/*
+ * A simple way to clear floated elements. Proper use is
+ * <div class="clearAll">&nbsp;</div>
+ */
+.clearAll {
+    clear: both;
+    height: 0px;
+    font-size: 0px;
+    line-height: 0px;
+}
+
+/*
+ * The white rectangle that page content is contained in.
+ */
+.bodyContainer {
+    margin-left: auto;
+    margin-right: auto;
+    width: 842px;
+    background-color: white;
+    border: 3px solid #aaaaaa;
+    border-top: 0px;
+}
+
+/*
+ * The bar at the top of the page that contains the logo.
+ */
+.header {
+    position: relative;
+    background-color: #91161E
+}
+
+/*
+ * Right under the header, the infobar displays the username of the current i
+ * user, the current page they're on, and a logout link.
+ */
+.infoBar {
+    padding: 6px;
+    background-color: #333;
+    color: white;
+}
+
+.infoBar a {
+    color: white;
+    text-decoration: underline;
+    background-image: url(../images/infoBarLinkArrow.png);
+    background-repeat: no-repeat;
+    background-position: right center;
+    padding-right: 7px;
+}
+
+/*
+ * Main page content under the infobar.
+ */
+.content {
+    padding: 12px;
+}
+
+/*
+ * Simple two column layout for the pages that need it.
+ */
+.twoColumnLeft {
+    margin-right: 12px;
+    float: left;
+}
+
+.twoColumnRight {
+    float: right;
+}
+
+/*
+ * Captioned images, like sensor graphs.
+ */
+.caption {
+    padding: 2px;
+    text-align: center;
+    font-weight: bold;
+}
+
+.caption img {
+    border: 1px solid #aaaaaa;
+}
+
+/*
+ * The main menu has vertical bars separating menu items.
+ */
+ul.mainMenu {
+    list-style-type: none;
+    margin-bottom: 12px;
+}
+
+ul.mainMenu li {
+    display: inline;
+    margin-left: 5px;
+    padding-left: 5px;
+    border-left: 1px solid black;
+}
+
+ul.mainMenu li:first-child {
+    display: inline;
+    margin-left: 0px;
+    padding-left: 0px;
+    border-left: 0px;
+}
+
+/*
+ * The page title displayed under the page header
+ */
+.pageTitle {
+    margin-bottom: 12px;
+    padding: 12px;
+    font-size: 14pt;
+    line-height: 16pt;
+    font-weight: bold;
+    text-align: center;
+}
+
+/*
+ * Generic styles for things that are up, down, or recovering.
+ */
+.up {
+    color: #007700;
+}
+
+.down {
+    color: #770000;
+}
+
+.recovering {
+    color: #777700;
+}
+
+/*
+ * Notification messages
+ */
+.statusMessage {
+    background-color: #ddffdd;
+    border: 2px solid #00aa00;
+    border-left: 0;
+    border-right: 0;
+    color: #00aa00;
+    margin-bottom: 12px;
+    padding: 12px;
+    font-size: 16px;
+    font-weight: bold;
+}
+
+.errorMessage {
+    background-color: #ffdddd;
+    border: 2px solid #aa0000;
+    border-left: 0;
+    border-right: 0;
+    color: #aa0000;
+    margin-bottom: 12px;
+    padding: 12px;
+    font-size: 16px;
+    font-weight: bold;
+}
+
+/*
+ * Generic windowing.
+ *
+ * Windows are comprised of three things, a window container, a header, and a
+ * body:
+ *
+ * +------------------------------+
+ * | Header                       |
+ * +==============================+
+ * |                              |
+ * | Body                         |
+ * |                              |
+ * +------------------------------+
+ *
+ * The following markup makes a window:
+ *
+ * <div class="window">
+ *     <h1>Header</h1>
+ *     <div class="windowBody">Body</div>
+ * </div>
+ *
+ * Set window width, height, placement, and the like with in-line CSS in the
+ * outer div.
+ */
+.window {
+    margin-left: auto;
+    margin-right: auto;
+    border: 2px solid #333;
+}
+
+.window h1 {
+    padding: 6px;
+    font-size: 16px;
+    font-weight: bold;
+    background: #91161E;
+    color: white;
+    border-bottom: 2px solid #333;
+}
+
+.windowBody {
+    padding: 6px;
+    background: url(../images/windowBodyBackground.png);
+    background-repeat: repeat-x;
+    background-position: bottom;
+}
+
+/*
+ * Form styles. Place labels to the left of their form elements.
+ */
+dl.zend_form dt {
+    min-width: 150px;
+    float: left;
+    clear: left;
+    text-align: right;
+    line-height: 20px;
+    padding-right: 6px;
+}
+
+dl.zend_form input, dl.zend_form select {
+    margin-bottom: 4px;
+    line-height: 20px;
+}
+
+/*
+ * Form errors.
+ */
+ul.errors {
+    list-style-type: none;
+    margin-left: 150px;
+}
+
+ul.errors li {
+    margin: 2px;
+    margin-bottom: 5px;
+    color: red;
+}
+
+/*
+ * Table styles
+ */
+td {
+    vertical-align: top;
+}
+
+table.listTable th {
+}
+
+tr.alternate {
+    background-color: #ddd;
+}
+
+table.listTable td {
+    padding: 2px;
+}
+
+td.dark {
+    font-weight: bold;
+    text-align: right;
+    padding-right: 4px;
+}
+
+/*
+ * A list of commands
+ */
+ul.actionList {
+    margin-left: 16px;
+}

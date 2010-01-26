@@ -1,0 +1,66 @@
+<div class="window" style="width: 260px; float: left;">
+    <h1><?=ucfirst($this->translate->_('My account'))?></h1>
+
+    <div class="windowBody">
+        <b><?=$this->account->companyName?></b><br />
+        <br />
+        <?=$this->account->address1?><br />
+        <?=($this->account->address2 != null) ? $this->account->address2 . '<br />' : ''?>
+        <?=$this->account->city?>, <?=$this->account->state?> <?=$this->account->postalCode?><br />
+        <?=$this->account->country?>
+    </div>
+</div>
+
+<div class="window" style="width: 260px; margin-left: 12px; float: left;">
+    <h1><?=ucfirst($this->translate->_('My hardware'))?></h1>
+
+    <div class="windowBody">
+        <b><?=$this->account->hardwareCount?></b> <?=($this->account->hardwareCount == 1) ? $this->translate->_('server') : $this->translate->_('servers')?> <?=$this->translate->_('total')?>.<br />
+        <br />
+
+        <span class="up">
+            <b><?=$this->account->networkMonitorUpHardwareCount?></b> <?=($this->account->networkMonitorUpHardwareCount == 1) ? $this->translate->_('server') : $this->translate->_('servers')?> <?=$this->translate->_('up')?>.
+        </span><br />
+
+        <span class="down">
+            <b><?=$this->account->networkMonitorDownHardwareCount?></b> <?=($this->account->networkMonitorDownHardwareCount == 1) ? $this->translate->_('server') : $this->translate->_('servers')?> <?=$this->translate->_('down')?>.
+        </span><br />
+
+        <span class="recovering">
+            <b><?=$this->account->networkMonitorRecoveringHardwareCount?></b> <?=($this->account->networkMonitorRecoveringHardwareCount == 1) ? $this->translate->_('server') : $this->translate->_('servers')?> <?=$this->translate->_('recovering')?>.
+        </span><br />
+
+        <br />
+
+        <span class="recovering">
+            <b><?=$this->serversOver85PercentBandwidth?></b> <?=($this->serversOver85PercentBandwidth == 1) ? $this->translate->_('server') : $this->translate->_('servers')?> <?=$this->translate->_('over 85% bandwidth')?>.
+        </span><br />
+
+        <span class="down">
+            <b><?=$this->serversOver100PercentBandwidth?></b> <?=($this->serversOver100PercentBandwidth == 1) ? $this->translate->_('server') : $this->translate->_('servers')?> <?=$this->translate->_('over 100% bandwidth')?>.
+        </span><br />
+
+        <br />
+
+        <a href="<?=$this->url(array('controller' => 'hardware'))?>"><?=$this->translate->_('Hardware Details')?></a>
+    </div>
+</div>
+
+<!-- <div class="window" style="width: 260px; margin-left: 12px; float: left;">
+    <h1><?=ucfirst($this->translate->_('My cloud instances'))?></h1>
+
+    <div class="windowBody">
+        <b><?=$this->account->virtualGuestCount?></b> <?=($this->account->virtualGuestCount == 1) ? $this->translate->_('instance') : $this->translate->_('instances')?> <?=$this->translate->_('total')?>.<br />
+        <br />
+        <span class="up"><b><?=$this->account->networkMonitorUpVirtualGuestCount?></b> <?=($this->account->networkMonitorUpVirtualGuestCount == 1) ? $this->translate->_('instance') : $this->translate->_('instances')?> <?=$this->translate->_('up')?>.</span><br />
+        <span class="down"><b><?=$this->account->networkMonitorDownVirtualGuestCount?></b> <?=($this->account->networkMonitorDownVirtualGuestCount == 1) ? $this->translate->_('instance') : $this->translate->_('instances')?> <?=$this->translate->_('down')?>.</span><br />
+        <span class="recovering"><b><?=$this->account->networkMonitorRecoveringVirtualGuestCount?></b> <?=($this->account->networkMonitorRecoveringVirtualGuestCount == 1) ? $this->translate->_('instance') : $this->translate->_('instances')?> <?=$this->translate->_('recovering')?>.</span><br />
+        <br />
+        <span class="recovering"><b><?=$this->instancesOver85PercentBandwidth?></b> <?=($this->instancesOver85PercentBandwidth == 1) ? $this->translate->_('instance') : $this->translate->_('instances')?> <?=$this->translate->_('over 85% bandwidth')?>.</span><br />
+        <span class="down"><b><?=$this->instancesOver100PercentBandwidth?></b> <?=($this->instancesOver100PercentBandwidth == 1) ? $this->translate->_('instance') : $this->translate->_('instances')?> <?=$this->translate->_('over 100% bandwidth')?>.</span><br />
+        <br />
+        <a href="#"><?=$this->translate->_('Instance Details')?></a>
+    </div>
+</div> -->
+
+<div class="clearAll">&nbsp;</div>

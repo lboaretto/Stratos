@@ -1,0 +1,49 @@
+<div class="twoColumnLeft" style="width: 200px">
+    <div class="window" style="margin-bottom: 12px;">
+        <h1><?=ucfirst($this->translate->_('actions'))?></h1>
+
+        <div class="windowBody">
+        <?php include 'actions.phtml'?>
+        </div>
+    </div>
+</div>
+
+<div class="twoColumnRight" style="width: 605px;">
+    <div class="window" style="margin-bottom: 12px;">
+        <h1><?=ucfirst($this->translate->_('logo'))?></h1>
+
+        <div class="windowBody">
+            <div class="caption">
+                <img src="/skins/<?=$this->skin->name?>/images/logo.png" />
+            </div>
+
+            <br />
+            <?=$this->logoForm?>
+        </div>
+    </div>
+
+    <div class="window" style="margin-bottom: 12px;">
+        <h1><?=$this->translate->_('CSS')?></h1>
+
+        <div class="windowBody">
+            <?=$this->cssForm?>
+        </div>
+    </div>
+
+    <?php if ($this->deleteForm != null): ?>
+        <div class="window">
+            <h1><?=$this->translate->_('Delete')?></h1>
+
+            <div class="windowBody">
+            <p><b><?=ucfirst($this->translate->_('warning!'))?></b></p>
+            <br />
+            <p><?=sprintf($this->translate->_('This form will delete the skin "%s"! Click the "Submit" button below to delete this skin.'), $this->skin->name)?></p>
+            <br />
+
+            <?=$this->deleteForm?>
+            </div>
+        </div>
+    <?php endif; ?>
+</div>
+
+<div class="clearAll">&nbsp;</div>

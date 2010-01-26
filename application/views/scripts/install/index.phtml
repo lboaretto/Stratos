@@ -1,0 +1,86 @@
+<div class="window" style="margin-bottom: 12px;">
+    <h1>PHP Tests</h1>
+
+    <div class="windowBody">
+        <table class="centered">
+        <?php foreach ($this->phpCheck as $test => $result): ?>
+            <tr>
+                <td class="dark"><?=$test?>:</td>
+                <td><?=($result) ? '<span class="up">Pass</span>' : '<span class="down"><b>FAIL</b></span>' ?></td>
+            </tr>
+        <?php endforeach; ?>
+        </table>
+
+        <br />
+
+        <div style="text-align: center">
+        <?php if ($this->hasPhpErrors):?>
+            There are errors regarding your PHP installation. Please resolve these before continuing. Refresh this page to re-verify your PHP installation.
+        <?php else: ?>
+            All PHP tests passed!
+        <?php endif; ?>
+        <br />
+        <br />
+        </div>
+    </div>
+</div>
+
+<div class="window" style="margin-bottom: 12px;">
+    <h1>Filesystem Tests</h1>
+
+    <div class="windowBody">
+        <table class="centered">
+        <?php foreach ($this->systemCheck as $test => $result): ?>
+            <tr>
+                <td class="dark"><?=$test?>:</td>
+                <td><?=($result) ? '<span class="up">Pass</span>' : '<span class="down"><b>FAIL</b></span>' ?></td>
+            </tr>
+        <?php endforeach; ?>
+        </table>
+
+        <br />
+
+        <div style="text-align: center">
+        <?php if ($this->hasSystemErrors):?>
+            There are errors regarding filesystem access. Please resolve these before continuing. Refresh this page to re-verify filesystem access.
+        <?php else: ?>
+            All filesystem tests passed!
+        <?php endif; ?>
+        <br />
+        <br />
+        </div>
+    </div>
+</div>
+
+<?php if (!$this->hasPhpErrors && !$this->hasSystemErrors): ?>
+    <div class="window" style="margin-bottom: 12px;">
+        <h1>Initial User</h1>
+
+        <div class="windowBody">
+            <?=$this->form?>
+            <br />
+            <br />
+            <table>
+                <tr>
+                    <td class="dark"><?=ucfirst($this->translate->_('username'))?>:</td>
+                    <td><?=$this->translate->_('The username used to log into the SoftLayer customer portal.')?></td>
+                </tr>
+
+                <tr>
+                    <td class="dark"><?=$this->translate->_('API key')?>:</td>
+                    <td><?=$this->translate->_('The user\'s SoftLayer API key. Log into <a href="https://manage.softlayer.com/Administrative/apiKeychain">The SoftLayer customer portal</a> to generate an API key.')?></td>
+                </tr>
+
+                <tr>
+                    <td class="dark"><?=ucfirst($this->translate->_('skin'))?>:</td>
+                    <td><?=$this->translate->_("The skin the user will see when they're logged in.")?></td>
+                </tr>
+
+                <tr>
+                    <td class="dark"><?=ucfirst($this->translate->_('language'))?>:</td>
+                    <td><?=$this->translate->_("The user's chosen language. Some information retrieved from SoftLayer may be presented in US English.")?></td>
+                </tr>
+            </table>
+        </div>
+    </div>
+<?php endif; ?>

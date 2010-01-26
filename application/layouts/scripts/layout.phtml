@@ -1,0 +1,65 @@
+<?=$this->doctype() ?><html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <?=$this->headTitle() ?>
+
+    <?=$this->headMeta() ?>
+
+    <?=$this->headLink() ?>
+
+    <?=$this->headScript() ?>
+
+    <?=$this->headLink()->appendStylesheet('/skins/' . Zend_Registry::get('skin') . '/styles/main.css') ?>
+</head>
+
+<body>
+    <div class="bodyContainer">
+        <div class="header">
+            <img src="<?='/skins/' . Zend_Registry::get('skin') . '/images/logo.png' ?>" />
+        </div>
+
+        <div class="infoBar">
+            <?php if ($this->currentUser == null): ?>
+                &nbsp;
+            <?php else: ?>
+                <div style="float: left">
+                    <?=$this->translate->_('Welcome')?>, <b><?=$this->currentUser->username?></b>!
+                </div>
+
+                <div style="float: right">
+                    <b><?=$this->pageTitle?></b> | <a href="<?=$this->url(array('controller' => 'user', 'action' => 'logout'))?>"><?=$this->translate->_('Logout')?></a>
+                </div>
+
+                <div class="clearAll">&nbsp;</div>
+            <?php endif; ?>
+        </div>
+
+        <div class="content">
+            <?php if ($this->currentUser != null): ?>
+                <ul class="mainMenu">
+                    <li><a href="<?=$this->url(array('controller' => 'index', 'action' => null, 'id' => null))?>"><?=$this->translate->_('Home')?></a></li>
+                    <?php if ($this->currentUser->isAdmin): ?>
+                        <li><a href="<?=$this->url(array('controller' => 'admin', 'action' => null, 'id' => null))?>"><?=$this->translate->_('Administrative')?></a></li>
+                    <?php endif; ?>
+                    <!-- <li><a href="#"><?=$this->translate->_('My account')?></a></li> -->
+                    <li><a href="<?=$this->url(array('controller' => 'hardware', 'action' => null, 'id' => null))?>"><?=$this->translate->_('My hardware')?></a></li>
+                    <!-- <li><a href="#"><?=$this->translate->_('My cloud instances')?></a></li> -->
+                </ul>
+            <?php endif; ?>
+
+            <?php if ($this->statusMessage != null):?>
+                <div class="statusMessage"><?=$this->statusMessage?></div>
+            <?php endif;?>
+
+            <?php if ($this->warningMessage != null):?>
+                <div class="warningMessage"><?=$this->warningMessage?></div>
+            <?php endif;?>
+
+            <?php if ($this->errorMessage != null):?>
+                <div class="errorMessage"><?=$this->errorMessage?></div>
+            <?php endif;?>
+
+            <?=$this->layout()->content?>
+        </div>
+    </div>
+</body>
+</html>

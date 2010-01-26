@@ -1,0 +1,56 @@
+<div class="twoColumnLeft" style="width: 200px">
+    <div class="window" style="margin-bottom: 12px;">
+        <h1><?=ucfirst($this->translate->_('actions'))?></h1>
+
+        <div class="windowBody">
+        <?php include 'actions.phtml'?>
+        </div>
+    </div>
+</div>
+
+<div class="twoColumnRight" style="width: 605px;">
+    <div class="window" style="margin-bottom: 12px;">
+        <h1><?=$this->translate->_('Add Skin')?></h1>
+
+        <div class="windowBody">
+            <?=$this->form?>
+            <br />
+            <br />
+            <table>
+                <tr>
+                    <td class="dark"><?=ucfirst($this->translate->_('name'))?>:</td>
+                    <td><?=$this->translate->_("The skin's name.")?></td>
+                </tr>
+
+                <tr>
+                    <td class="dark"><?=ucfirst($this->translate->_('base skin'))?>:</td>
+                    <td><?=$this->translate->_('Create a copy of an existing skin.')?></td>
+                </tr>
+            </table>
+        </div>
+    </div>
+
+    <div class="window">
+        <h1><?=$this->translate->_('Skins')?></h1>
+
+        <div class="windowBody">
+            <table class="listTable" width="100%">
+                <tr>
+                    <th><?=$this->translate->_('name')?></th>
+                    <th><?=$this->translate->_('path')?></th>
+                    <th><?=$this->translate->_('default skin')?></th>
+                </tr>
+
+                <?php foreach ($this->skins as $i => $skin): ?>
+                    <tr<?=($i % 2) ? '' : ' class="alternate"'?>>
+                        <td><a href="<?=$this->url(array('action' => 'editSkin', 'name' => $skin->name))?>"><?=$skin->name?></a></td>
+                        <td><?=$skin->path?></td>
+                        <td align="center"><?=($this->config->defaults->skin == $skin->name) ? '<b>' . $this->translate->_('yes') . '</b>' : $this->translate->_('no')?></td>
+                    </tr>
+                <?php endforeach; ?>
+            </table>
+        </div>
+    </div>
+</div>
+
+<div class="clearAll">&nbsp;</div>

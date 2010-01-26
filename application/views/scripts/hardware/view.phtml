@@ -1,0 +1,426 @@
+<?php if ($this->hardware->hostname != null): ?>
+    <div class="twoColumnLeft" style="width: 200px">
+        <div class="window" style="margin-bottom: 12px;">
+            <h1><?=ucfirst($this->translate->_('actions'))?></h1>
+
+            <div class="windowBody">
+            <?php include 'actions.phtml'?>
+            </div>
+        </div>
+    </div>
+
+    <div class="twoColumnRight" style="width: 605px;">
+        <div class="window" style="margin-bottom: 12px;">
+            <h1><?=ucfirst($this->translate->_('general'))?></h1>
+
+            <div class="windowBody">
+            <table class="centered">
+                <tr>
+                    <td class="dark"><?=$this->translate->_('hostname')?>:</td>
+                    <td><?=$this->hardware->hostname?></td>
+                </tr>
+
+                <tr>
+                    <td class="dark"><?=$this->translate->_('domain')?>:</td>
+                    <td><?=$this->hardware->domain?></td>
+                </tr>
+
+                <tr>
+                    <td class="dark"><?=$this->translate->_('status')?>:</td>
+                    <td><?=$this->hardware->hardwareStatus->status?></td>
+                </tr>
+
+                <tr>
+                    <td class="dark"><?=$this->translate->_('location')?>:</td>
+                    <td><?=$this->hardware->serverRoom->longName?>, <?=$this->hardware->datacenter->longName ?></td>
+                </tr>
+
+                <tr>
+                    <td class="dark"><?=$this->translate->_('provision date')?>:</td>
+                    <td><?=date('F j, Y g:ia (\G\M\T O)', strtotime($this->hardware->provisionDate))?></td>
+                </tr>
+
+                <tr>
+                    <td class="dark"><?=$this->translate->_('reload date')?>:</td>
+                    <td><?=date('F j, Y g:ia (\G\M\T O)', strtotime($this->hardware->lastOperatingSystemReload->modifyDate))?></td>
+                </tr>
+
+                <tr>
+                    <td class="dark"><?=$this->translate->_('notes')?>:</td>
+                    <td><?=($this->hardware->notes == null) ? '<i>' . $this->translate->_('none') . '</i>' : $this->hardware->notes?></td>
+                </tr>
+            </table>
+            </div>
+        </div>
+
+        <div class="window" style="margin-bottom: 12px;">
+            <h1><?=ucfirst($this->translate->_('hardware'))?></h1>
+
+            <div class="windowBody">
+            <table class="centered">
+                <?php foreach ($this->hardware->componets as $componentType => $component): ?>
+                <tr>
+                    <td class="dark"><?=str_replace(' ', '&nbsp;', $this->translate($componentType))?>:</td>
+                    <td>
+                    <?php foreach ($component as $description => $quantity): ?>
+                        <?=$quantity?>x <?=$description?><?=(count($component) > 1) ? '<br />' : '' ?>
+                    <?php endforeach; ?>
+                    </td>
+                </tr>
+                <?php endforeach; ?>
+            </table>
+            </div>
+        </div>
+
+        <div class="window" style="margin-bottom: 12px;">
+            <h1><?=ucfirst($this->translate->_('software'))?></h1>
+
+            <div class="windowBody">
+            <table class="centered">
+                <?php foreach ($this->hardware->softwareComponents as $componentType => $component): ?>
+                    <tr>
+                        <td class="dark"><?=str_replace(' ', '&nbsp;', $this->translate($componentType))?>:</td>
+                        <td><?=$component['name']?>
+                            <?php if (count($component['passwords']) > 0): ?>
+                                <br /><i>
+                                <?php foreach ($component['passwords'] as $password): ?>
+                                    <?=$password['username']?> / <?=$password['password']?><br />
+                                <?php endforeach; ?>
+                                </i><br />
+                            <?php endif; ?>
+                        </td>
+                    </tr>
+                <?php endforeach; ?>
+            </table>
+            </div>
+        </div>
+
+        <div class="window" style="margin-bottom: 12px;">
+            <h1><?=ucfirst($this->translate->_('public network'))?></h1>
+
+            <div class="windowBody">
+            <?php if (isset($this->hardware->publicNetworkComponent)): ?>
+                <table class="centered">
+                    <tr>
+                        <td class="dark"><?=$this->translate->_('port')?>:</td>
+                        <td><?=$this->hardware->publicNetworkComponent->name?><?=$this->hardware->publicNetworkComponent->port?></td>
+                    </tr>
+
+                    <tr>
+                        <td class="dark"><?=$this->translate->_('uplink speed')?>:</td>
+                        <td><?=$this->hardware->publicNetworkComponent->speed?> (Mbps)</td>
+                    </tr>
+
+                    <tr>
+                        <td class="dark"><?=str_replace(' ', '&nbsp;', $this->translate->_('MAC address'))?>:</td>
+                        <td><?=$this->hardware->publicNetworkComponent->macAddress?></td>
+                    </tr>
+
+                    <?php if($this->hardware->publicNetworkComponent->primaryIpAddress):?>
+                        <tr>
+                            <td class="dark"><?=$this->translate->_('primary IP')?>:</td>
+                            <td><?=$this->hardware->publicNetworkComponent->primaryIpAddress?></td>
+                        </tr>
+
+                        <tr>
+                            <td class="dark"><?=$this->translate->_('gateway')?>:</td>
+                            <td><?=$this->hardware->publicNetworkComponent->primarySubnet->gateway?></td>
+                        </tr>
+
+                        <tr>
+                            <td class="dark"><?=$this->translate->_('netmask')?>:</td>
+                            <td><?=$this->hardware->publicNetworkComponent->primarySubnet->netmask?></td>
+                        </tr>
+                    <?php endif;?>
+
+                    <?php if(count($this->hardware->publicNetworkComponent->subnets) > 0):?>
+                        <tr>
+                            <td class="dark"><?=$this->translate->_('secondary addresses')?>:</td>
+                            <td>
+                            <?php foreach($this->hardware->publicNetworkComponent->subnets as $subnet):?>
+                                <?=$subnet->networkIdentifier?><br />
+                            <?php endforeach;?>
+                            </td>
+                        </tr>
+                    <?php endif;?>
+
+                    <?php if($this->hardware->publicNetworkComponent->primarySubnet->networkVlanId):?>
+                        <tr>
+                            <td class="dark"><?=$this->translate->_('VLAN')?>:</td>
+                            <td><?=$this->hardware->publicNetworkComponent->primarySubnet->networkVlan->vlanNumber?></td>
+                        </tr>
+                    <?php endif;?>
+
+                    <?php if($this->hardware->bandwidthAllocation || $this->hardware->virtualRackName):?>
+                        <tr>
+                            <td class="dark"><?=$this->translate->_('bandwidth allotment')?>:</td>
+                            <td><?=($this->hardware->bandwidthAllocation > 999999) ? 'Unmetered' : $this->hardware->bandwidthAllocation?> GB<br />
+                            <?=$this->hardware->virtualRackName ?><?=($this->hardware->virtualRackName == 'Virtual Private Rack') ? '' : '<br />' . $this->translate->_('pooled bandwidth')?>
+                            </td>
+                        </tr>
+                    <?php endif;?>
+
+                    <?php if($this->hardware->nextBillingCycleBandwidthAllocation
+                        && $this->hardware->nextBillingCycleBandwidthAllocation != $this->hardware->bandwidthAllocation):?>
+
+                        <tr>
+                            <td class="dark"><?=$this->translate->_('bandwidth allotment')?><br />
+                            (<?=$this->translate->_('next billing')?>):</td>
+                            <td><?=$this->hardware->nextBillingCycleBandwidthAllocation?> GB</td>
+                        </tr>
+                        <?php endif;?>
+                </table>
+            <?php else: ?>
+                <br />
+                <center><b><?=$this->translate->_('not applicable')?></b></center>
+                <br />
+            <?php endif; ?>
+            </div>
+        </div>
+
+        <div class="window" style="margin-bottom: 12px;">
+            <h1><?=ucfirst($this->translate->_('private network'))?></h1>
+
+            <div class="windowBody">
+            <?php if (isset($this->hardware->privateNetworkComponent)): ?>
+                <table class="centered">
+                    <tr>
+                        <td class="dark"><?=$this->translate->_('port')?>:</td>
+                        <td><?=$this->hardware->privateNetworkComponent->name?><?=$this->hardware->privateNetworkComponent->port?></td>
+                    </tr>
+
+                    <tr>
+                        <td class="dark"><?=$this->translate->_('uplink speed')?>:</td>
+                        <td><?=$this->hardware->privateNetworkComponent->speed?> (Mbps)</td>
+                    </tr>
+
+                    <tr>
+                        <td class="dark"><?=str_replace(' ', '&nbsp;', $this->translate->_('MAC address'))?>:</td>
+                        <td><?=$this->hardware->privateNetworkComponent->macAddress?></td>
+                    </tr>
+
+                    <?php if($this->hardware->privateNetworkComponent->primaryIpAddress):?>
+                        <tr>
+                            <td class="dark"><?=$this->translate->_('primary IP')?>:</td>
+                            <td><?=$this->hardware->privateNetworkComponent->primaryIpAddress?></td>
+                        </tr>
+
+                        <tr>
+                            <td class="dark"><?=$this->translate->_('gateway')?>:</td>
+                            <td><?=$this->translate->_('n/a')?></td>
+                        </tr>
+
+                        <tr>
+                            <td class="dark"><?=$this->translate->_('netmask')?>:</td>
+                            <td><?=$this->hardware->privateNetworkComponent->primarySubnet->netmask?></td>
+                        </tr>
+                    <?php endif;?>
+
+                    <?php if(count($this->hardware->privateNetworkComponent->subnets) > 0):?>
+                        <tr>
+                            <td class="dark"><?=$this->translate->_('secondary addresses')?>:</td>
+                            <td>
+                            <?php foreach($this->hardware->privateNetworkComponent->subnets as $subnet):?>
+                                <?=$subnet->networkIdentifier?><br />
+                            <?php endforeach;?>
+                            </td>
+                        </tr>
+                    <?php endif;?>
+
+                    <?php if($this->hardware->privateNetworkComponent->ipmiIpAddress
+                        && !$this->hardware->activeTransaction):?>
+
+                        <tr>
+                            <td class="dark"><?=$this->translate->_('IPMI address')?>:</td>
+                            <td><?=$this->hardware->privateNetworkComponent->ipmiIpAddress?></td>
+                        </tr>
+                    <?php endif;?>
+
+                    <?php if($this->hardware->privateNetworkComponent->primarySubnet->networkVlanId):?>
+                        <tr>
+                            <td class="dark"><?=$this->translate->_('VLAN')?>:</td>
+                            <td><?=$this->hardware->privateNetworkComponent->primarySubnet->networkVlan->vlanNumber?></td>
+                        </tr>
+                    <?php endif;?>
+                </table>
+            <?php else: ?>
+                <br />
+                <center><b><?=$this->translate->_('not applicable')?></b></center>
+                <br />
+            <?php endif; ?>
+            </div>
+        </div>
+
+        <div class="window" style="margin-bottom: 12px;">
+            <h1><?=ucfirst($this->translate->_('management network'))?></h1>
+
+            <div class="windowBody">
+            <?php if (isset($this->hardware->managementNetworkComponent)): ?>
+                <table class="centered">
+                    <tr>
+                        <td class="dark"><?=$this->translate->_('port')?>:</td>
+                        <td><?=$this->hardware->managementNetworkComponent->name?><?=$this->hardware->managementNetworkComponent->port?></td>
+                    </tr>
+
+                    <tr>
+                        <td class="dark"><?=$this->translate->_('uplink speed')?>:</td>
+                        <td><?=$this->hardware->managementNetworkComponent->speed?> (Mbps)</td>
+                    </tr>
+
+                    <tr>
+                        <td class="dark"><?=str_replace(' ', '&nbsp;', $this->translate->_('MAC address'))?>:</td>
+                        <td><?=$this->hardware->managementNetworkComponent->macAddress?></td>
+                    </tr>
+
+                    <?php if($this->hardware->managementNetworkComponent->primaryIpAddress):?>
+                        <tr>
+                            <td class="dark"><?=$this->translate->_('primary IP')?>:</td>
+                            <td><?=$this->hardware->managementNetworkComponent->primaryIpAddress?></td>
+                        </tr>
+
+                        <tr>
+                            <td class="dark"><?=$this->translate->_('gateway')?>:</td>
+                            <td><?=$this->translate->_('n/a')?></td>
+                        </tr>
+
+                        <tr>
+                            <td class="dark"><?=$this->translate->_('netmask')?>:</td>
+                            <td><?=$this->hardware->managementNetworkComponent->primarySubnet->netmask?></td>
+                        </tr>
+                    <?php endif;?>
+
+                    <?php if(count($this->hardware->managementNetworkComponent->subnets) > 0):?>
+                        <tr>
+                            <td class="dark"><?=$this->translate->_('secondary addresses')?>:</td>
+                            <td>
+                            <?php foreach($this->hardware->managementNetworkComponent->subnets as $subnet):?>
+                                <?=$subnet->networkIdentifier?><br />
+                            <?php endforeach;?>
+                            </td>
+                        </tr>
+                    <?php endif;?>
+
+                    <?php if($this->hardware->managementNetworkComponent->ipmiIpAddress
+                        && !$this->hardware->activeTransaction):?>
+
+                        <tr>
+                            <td class="dark"><?=$this->translate->_('IPMI address')?>:</td>
+                            <td><?=$this->hardware->managementNetworkComponent->ipmiIpAddress?></td>
+                        </tr>
+                    <?php endif;?>
+
+                    <?php if($this->hardware->managementNetworkComponent->primarySubnet->networkVlanId):?>
+                        <tr>
+                            <td class="dark"><?=$this->translate->_('VLAN')?>:</td>
+                            <td><?=$this->hardware->managementNetworkComponent->primarySubnet->networkVlan->vlanNumber?></td>
+                        </tr>
+                    <?php endif;?>
+                </table>
+            <?php else: ?>
+                <br />
+                <center><b><?=$this->translate->_('not applicable')?></b></center>
+                <br />
+            <?php endif; ?>
+            </div>
+        </div>
+
+        <div class="window" style="margin-bottom: 12px;">
+            <h1><?=ucfirst($this->translate->_('services'))?></h1>
+
+            <div class="windowBody">
+            <table class="centered">
+                <?php if($this->hardware->businessContinuanceInsuranceFlag):?>
+                    <tr>
+                        <td class="dark"><?=$this->translate->_('business continuance insurance')?>:</td>
+                        <td><?=ucfirst($this->translate->_('active'))?></td>
+                    </tr>
+                <?php endif; ?>
+
+                <tr>
+                    <td class="dark"><?=$this->translate->_('hardware firewall')?>:</td>
+                    <td><?php if(isset($this->hardware->firewallServiceComponent->status)): ?>
+                        <?=ucfirst($this->translate->_('installed'))?>, <?=($this->hardware->firewallServiceComponent->status == 'bypass') ? $this->translate->_('bypass mode') : $this->translate->_('running rules')?>
+                    <?php else: ?>
+                        <?=ucfirst($this->translate->_('not installed'))?>
+                    <?php endif;?>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td class="dark"><?=$this->translate->_('lockbox storage')?>:</td>
+                    <td><?=ucfirst($this->translate->_('capacity'))?>: 1GB</td>
+                </tr>
+
+                <?php if(count($this->hardware->account->nasNetworkStorage) > 0):?>
+                    <tr>
+                        <td class="dark"><?=$this->translate->_('NAS storage')?>:</td>
+                        <td>
+                        <?php foreach($this->hardware->account->nasNetworkStorage as $storage):?>
+                            <?=$storage->username?>, <?=ucfirst($this->translate->_('capacity'))?>: <?=$storage->capacityGb?>GB<br />
+                        <?php endforeach;?>
+                        </td>
+                    </tr>
+                <?php endif; ?>
+
+                <?php if(count($this->hardware->account->iscsiNetworkStorage) > 0):?>
+                    <tr>
+                        <td class="dark"><?=$this->translate->_('iSCSI storage')?>:</td>
+                        <td>
+                        <?php foreach($this->hardware->account->iscsiNetworkStorage as $storage):?>
+                            <?=$storage->username?>, <?=ucfirst($this->translate->_('capacity'))?>: <?=$storage->capacityGb?>GB<br />
+                        <?php endforeach;?>
+                        </td>
+                    </tr>
+                <?php endif; ?>
+
+                <?php if(count($this->hardware->account->evaultNetworkStorage) > 0):?>
+                    <tr>
+                        <td class="dark"><?=$this->translate->_('backup storage')?>:</td>
+                        <td>
+                        <?php foreach($this->hardware->account->evaultNetworkStorage as $storage):?>
+                            <?=$storage->username?>, <?=ucfirst($this->translate->_('capacity'))?>: <?=$storage->capacityGb?>GB<br />
+                        <?php endforeach;?>
+                        </td>
+                    </tr>
+                <?php endif; ?>
+
+                <?php if(count($this->hardware->monitoringServiceComponent) > 0):?>
+                    <tr>
+                        <td class="dark"><?=$this->translate->_('network monitoring')?>:</td>
+                        <td><?php switch($this->hardware->monitoringServiceComponent->monitorLevel):
+                            case 0:
+                                echo $this->translate->_('basic ping');
+                                break;
+                            case 1:
+                            case 2:
+                                echo $this->translate->_('extended service tests');
+                                break;
+                        endswitch;?><br />
+                        <?=$this->translate->_('notification level')?>:&nbsp;<?php switch($this->hardware->monitoringServiceComponent->notificationLevel):
+                            case 0:
+                            case 1:
+                            case 2:
+                                echo $this->translate->_('email users');
+                                break;
+                        endswitch;?><br />
+                        <?=$this->translate->_('response level')?>:&nbsp;<?php switch($this->hardware->monitoringServiceComponent->responseLevel):
+                            case 0:
+                                echo $this->translate->_('no action');
+                                break;
+                            case 1:
+                                echo $this->translate->_('automated reboot');
+                                break;
+                            case 2:
+                                echo $this->translate->_('manual reboot');
+                                break;
+                        endswitch;?>
+                        </td>
+                    </tr>
+                <?php endif;?>
+            </table>
+            </div>
+        </div>
+    </div>
+
+    <div class="clearAll">&nbsp;</div>
+<?php endif; ?>

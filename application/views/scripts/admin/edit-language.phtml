@@ -1,0 +1,36 @@
+<div class="twoColumnLeft" style="width: 200px">
+    <div class="window" style="margin-bottom: 12px;">
+        <h1><?=ucfirst($this->translate->_('actions'))?></h1>
+
+        <div class="windowBody">
+        <?php include 'actions.phtml'?>
+        </div>
+    </div>
+</div>
+
+<div class="twoColumnRight" style="width: 605px;">
+    <div class="window" style="margin-bottom: 12px;">
+        <h1><?=ucfirst($this->translate->_('content'))?></h1>
+
+        <div class="windowBody">
+            <?=$this->form?>
+        </div>
+    </div>
+
+    <?php if ($this->deleteForm != null): ?>
+        <div class="window">
+            <h1><?=$this->translate->_('Delete')?></h1>
+
+            <div class="windowBody">
+            <p><b><?=ucfirst($this->translate->_('warning!'))?></b></p>
+            <br />
+            <p><?=sprintf($this->translate->_('This form will delete the language "%s"! Click the "Submit" button below to delete this language.'), $this->language->name)?></p>
+            <br />
+
+            <?=$this->deleteForm?>
+            </div>
+        </div>
+    <?php endif; ?>
+</div>
+
+<div class="clearAll">&nbsp;</div>

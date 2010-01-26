@@ -1,0 +1,66 @@
+<?php if ($this->hardware->hostname != null): ?>
+    <div class="twoColumnLeft" style="width: 200px">
+        <div class="window" style="margin-bottom: 12px;">
+            <h1><?=ucfirst($this->translate->_('actions'))?></h1>
+
+            <div class="windowBody">
+            <?php include 'actions.phtml'?>
+            </div>
+        </div>
+    </div>
+
+    <div class="twoColumnRight" style="width: 605px;">
+        <div class="window" style="margin-bottom: 12px;">
+            <h1><?=ucfirst($this->translate->_('temperature readings'))?></h1>
+
+            <div class="windowBody">
+                <div class="centered">
+                    <?php foreach ($this->sensorData->temperatureGraphs as $graphInfo): ?>
+                        <div class="caption" style="margin-left: 12px; margin-bottom: 12px; float: left;">
+                            <img src="data:image/png;base64,<?=base64_encode($graphInfo->graph)?>" alt="<?=$graphInfo->title?> <?=$this->translate->_('temperature')?>" /><br />
+                            <?=$graphInfo->title?>
+                        </div>
+                    <?php endforeach; ?>
+
+                    <div class="clearAll">&nbsp;</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="window" style="margin-bottom: 12px;">
+            <h1><?=ucfirst($this->translate->_('fan speed readings'))?></h1>
+
+            <div class="windowBody">
+                <div class="centered">
+                    <?php foreach ($this->sensorData->speedGraphs as $graphInfo): ?>
+                        <div class="caption" style="margin-left: 12px; margin-bottom: 12px; float: left;">
+                            <img src="data:image/png;base64,<?=base64_encode($graphInfo->graph)?>" alt="<?=$graphInfo->title?> <?=$this->translate->_('temperature')?>" /><br />
+                            <?=$graphInfo->title?>
+                        </div>
+                    <?php endforeach; ?>
+
+                    <div class="clearAll">&nbsp;</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="window" style="margin-bottom: 12px">
+            <h1><?=ucfirst($this->translate->_('raw data'))?></h1>
+
+            <div class="windowBody">
+                <?php if (count($this->sensorData->rawData) > 0): ?>
+                    <table class="centered">
+                        <?php foreach($this->sensorData->rawData as $data): ?>
+                            <tr>
+                                <td class="dark"><?=$data->sensorId ?>:</td>
+                                <td><?=$data->sensorReading ?> <?=($data->sensorUnits == 'unspecified') ? '' : $data->sensorUnits ?></td>
+                            </tr>
+                        <?php endforeach; ?>
+                    </table>
+                <?php endif; ?>
+            </div>
+        </div>
+    </div>
+
+    <div class="clearAll">&nbsp;</div>
+<?php endif; ?>

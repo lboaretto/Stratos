@@ -1,0 +1,56 @@
+<div class="twoColumnLeft" style="width: 200px">
+    <div class="window" style="margin-bottom: 12px;">
+        <h1><?=ucfirst($this->translate->_('actions'))?></h1>
+
+        <div class="windowBody">
+        <?php include 'actions.phtml'?>
+        </div>
+    </div>
+</div>
+
+<div class="twoColumnRight" style="width: 605px;">
+    <div class="window" style="margin-bottom: 12px;">
+        <h1><?=$this->translate->_('Add Language')?></h1>
+
+        <div class="windowBody">
+            <?=$this->form?>
+            <br />
+            <br />
+            <table>
+                <tr>
+                    <td class="dark"><?=ucfirst($this->translate->_('name'))?>:</td>
+                    <td><?=$this->translate->_("The language's name.")?></td>
+                </tr>
+
+                <tr>
+                    <td class="dark"><?=ucfirst($this->translate->_('base language'))?>:</td>
+                    <td><?=$this->translate->_('Create a copy of an existing language.')?></td>
+                </tr>
+            </table>
+        </div>
+    </div>
+
+    <div class="window">
+        <h1><?=$this->translate->_('Languages')?></h1>
+
+        <div class="windowBody">
+            <table class="listTable" width="100%">
+                <tr>
+                    <th><?=$this->translate->_('name')?></th>
+                    <th><?=$this->translate->_('path')?></th>
+                    <th><?=$this->translate->_('default language')?></th>
+                </tr>
+
+                <?php foreach ($this->languages as $i => $language): ?>
+                    <tr<?=($i % 2) ? '' : ' class="alternate"'?>>
+                        <td><a href="<?=$this->url(array('action' => 'editLanguage', 'name' => $language->name))?>"><?=$language->name?></a></td>
+                        <td><?=$language->path?></td>
+                        <td align="center"><?=($this->config->defaults->language == $language->name) ? '<b>' . $this->translate->_('yes') . '</b>' : $this->translate->_('no')?></td>
+                    </tr>
+                <?php endforeach; ?>
+            </table>
+        </div>
+    </div>
+</div>
+
+<div class="clearAll">&nbsp;</div>
