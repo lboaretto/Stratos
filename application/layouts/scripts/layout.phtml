@@ -8,13 +8,13 @@
 
     <?=$this->headScript() ?>
 
-    <?=$this->headLink()->appendStylesheet('/skins/' . Zend_Registry::get('skin') . '/styles/main.css') ?>
+    <?=$this->headLink()->appendStylesheet(Zend_Registry::get('baseUrlDir') . '/skins/' . Zend_Registry::get('skin') . '/styles/main.css') ?>
 </head>
 
 <body>
     <div class="bodyContainer">
         <div class="header">
-            <img src="<?='/skins/' . Zend_Registry::get('skin') . '/images/logo.png' ?>" />
+            <img src="<?=Zend_Registry::get('baseUrlDir')?>/skins/<?=Zend_Registry::get('skin')?>/images/logo.png" />
         </div>
 
         <div class="infoBar">

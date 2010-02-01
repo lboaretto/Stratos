@@ -149,8 +149,18 @@ try {
 Zend_Registry::set('skin', $skin);
 
 /*
+ * Avoid users having to set up mod_rewrite rules to get to /index.php/ URLs.
+ * This also lets them set their docroots to something other than the public/
+ * directory, a bad idea, but it's their bad idea to have.
+ */
+$baseUrl = str_replace('//', '/', dirname($_SERVER['SCRIPT_NAME']) . '/index.php');
+$baseUrlDir = (dirname($baseUrl) == '/') ? '' : dirname($baseUrl);
+$controller = Zend_Controller_Front::getInstance();
+$controller->setBaseUrl($baseUrl);
+Zend_Registry::set('baseUrlDir', $baseUrlDir);
+
+/*
  * Clean up before we process the page
  */
 unset($currentUser);
-
-
+unset($controller);
