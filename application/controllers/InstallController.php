@@ -44,12 +44,14 @@ class InstallController extends Zend_Controller_Action
     {
         /*
          * Handle the current user and login redirection.
-         * If the user is logged in then redirect them to the index page.
+         * If the user is logged in or we already have users installed then
+         * redirect them to the index page.
          */
         $currentUser = new Zend_Session_Namespace('currentUser');
         $requestParameters = $this->getRequest()->getParams();
+        $allUsers = Model_DbTable_User::getAllUsers();
 
-        if ($currentUser->username != null) {
+        if ($currentUser->username != null || count($allUsers) > 0) {
             $this->_helper->_redirector->goToRouteAndExit(array('controller' => 'index', 'action' => null));
         }
 
