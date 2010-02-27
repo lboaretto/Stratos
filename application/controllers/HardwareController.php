@@ -92,8 +92,8 @@ class HardwareController extends Zend_Controller_Action
                 if (isset($server->networkMonitors) && count($server->networkMonitors) > 0) {
                     foreach ($server->networkMonitors as $monitor) {
                         if (isset($monitor->lastResult)) {
-                            if (isset($monitor->lastResult->reponseStatus)) {
-                                if ($monitor->lastResult->reponseStatus == 2) {
+                            if (isset($monitor->lastResult->responseStatus)) {
+                                if ($monitor->lastResult->responseStatus == 2) {
                                     $hardware[$i]->statusMessage = 'up';
                                 } else {
                                     $hardware[$i]->statusMessage = 'down';
